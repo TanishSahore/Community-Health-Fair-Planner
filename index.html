@@ -1,0 +1,858 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <meta name="description" content="MediScan AI — Intelligent Multi-Disease Detection and Healthcare Assistant"/>
+  <title>MediScan AI — Smart Healthcare Platform</title>
+  <link rel="stylesheet" href="style.css"/>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&display=swap" rel="stylesheet"/>
+</head>
+<body>
+
+  <!-- ========== SIDEBAR ========== -->
+  <aside class="sidebar" id="sidebar">
+    <div class="sidebar-logo">
+      <div class="logo-icon">
+        <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+          <path d="M22 12h-4l-3 9L9 3l-3 9H2"/>
+        </svg>
+      </div>
+      <span class="logo-text">MediScan<span class="logo-accent">AI</span></span>
+    </div>
+
+    <nav class="sidebar-nav">
+      <a href="#" class="nav-item active" id="nav-dashboard" onclick="showSection('dashboard')">
+        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+          <rect x="3" y="3" width="7" height="7"/><rect x="14" y="3" width="7" height="7"/>
+          <rect x="14" y="14" width="7" height="7"/><rect x="3" y="14" width="7" height="7"/>
+        </svg>
+        <span>Dashboard</span>
+      </a>
+      <a href="#" class="nav-item" id="nav-detect" onclick="showSection('detect')">
+        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+          <circle cx="11" cy="11" r="8"/><path d="m21 21-4.35-4.35"/>
+        </svg>
+        <span>Detect Disease</span>
+      </a>
+      <a href="#" class="nav-item" id="nav-doctors" onclick="showSection('doctors')">
+        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+          <path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/>
+          <circle cx="9" cy="7" r="4"/>
+          <path d="M23 21v-2a4 4 0 0 0-3-3.87"/>
+          <path d="M16 3.13a4 4 0 0 1 0 7.75"/>
+        </svg>
+        <span>Doctors</span>
+      </a>
+      <a href="#" class="nav-item" id="nav-reports" onclick="showSection('reports')">
+        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+          <path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/>
+          <polyline points="14 2 14 8 20 8"/>
+          <line x1="16" y1="13" x2="8" y2="13"/><line x1="16" y1="17" x2="8" y2="17"/>
+          <polyline points="10 9 9 9 8 9"/>
+        </svg>
+        <span>Reports</span>
+      </a>
+      <a href="#" class="nav-item" id="nav-settings" onclick="showSection('settings')">
+        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+          <circle cx="12" cy="12" r="3"/>
+          <path d="M19.4 15a1.65 1.65 0 0 0 .33 1.82l.06.06a2 2 0 0 1-2.83 2.83l-.06-.06a1.65 1.65 0 0 0-1.82-.33 1.65 1.65 0 0 0-1 1.51V21a2 2 0 0 1-4 0v-.09A1.65 1.65 0 0 0 9 19.4a1.65 1.65 0 0 0-1.82.33l-.06.06a2 2 0 0 1-2.83-2.83l.06-.06A1.65 1.65 0 0 0 4.68 15a1.65 1.65 0 0 0-1.51-1H3a2 2 0 0 1 0-4h.09A1.65 1.65 0 0 0 4.6 9a1.65 1.65 0 0 0-.33-1.82l-.06-.06a2 2 0 0 1 2.83-2.83l.06.06A1.65 1.65 0 0 0 9 4.68a1.65 1.65 0 0 0 1-1.51V3a2 2 0 0 1 4 0v.09a1.65 1.65 0 0 0 1 1.51 1.65 1.65 0 0 0 1.82-.33l.06-.06a2 2 0 0 1 2.83 2.83l-.06.06A1.65 1.65 0 0 0 19.4 9a1.65 1.65 0 0 0 1.51 1H21a2 2 0 0 1 0 4h-.09a1.65 1.65 0 0 0-1.51 1z"/>
+        </svg>
+        <span>Settings</span>
+      </a>
+    </nav>
+
+    <div class="sidebar-footer">
+      <div class="user-info">
+        <div class="user-avatar" id="sidebar-avatar">JD</div>
+        <div class="user-details">
+          <span class="user-name" id="sidebar-name">John Doe</span>
+          <span class="user-role" id="sidebar-role">Patient</span>
+        </div>
+      </div>
+    </div>
+  </aside>
+
+  <!-- ========== MAIN WRAPPER ========== -->
+  <div class="main-wrapper">
+
+    <!-- ========== HEADER ========== -->
+    <header class="header">
+      <button class="hamburger" id="hamburger" onclick="toggleSidebar()">
+        <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+          <line x1="3" y1="6" x2="21" y2="6"/>
+          <line x1="3" y1="12" x2="21" y2="12"/>
+          <line x1="3" y1="18" x2="21" y2="18"/>
+        </svg>
+      </button>
+
+      <div class="header-search">
+        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+          <circle cx="11" cy="11" r="8"/><path d="m21 21-4.35-4.35"/>
+        </svg>
+        <input type="text" placeholder="Search symptoms, diseases..." class="search-input" id="header-search"/>
+      </div>
+
+      <div class="header-actions">
+        <button class="theme-toggle" onclick="toggleTheme()" title="Toggle Theme">
+          <svg id="theme-icon" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+            <circle cx="12" cy="12" r="5"/>
+            <line x1="12" y1="1" x2="12" y2="3"/><line x1="12" y1="21" x2="12" y2="23"/>
+            <line x1="4.22" y1="4.22" x2="5.64" y2="5.64"/><line x1="18.36" y1="18.36" x2="19.78" y2="19.78"/>
+            <line x1="1" y1="12" x2="3" y2="12"/><line x1="21" y1="12" x2="23" y2="12"/>
+            <line x1="4.22" y1="19.78" x2="5.64" y2="18.36"/><line x1="18.36" y1="5.64" x2="19.78" y2="4.22"/>
+          </svg>
+        </button>
+        <button class="emergency-btn" onclick="showEmergency()">
+          <svg width="14" height="14" viewBox="0 0 24 24" fill="currentColor">
+            <path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm1 15h-2v-2h2v2zm0-4h-2V7h2v6z"/>
+          </svg>
+          SOS
+        </button>
+        <div class="notification-btn" onclick="toggleNotifications()">
+          <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+            <path d="M18 8A6 6 0 0 0 6 8c0 7-3 9-3 9h18s-3-2-3-9"/>
+            <path d="M13.73 21a2 2 0 0 1-3.46 0"/>
+          </svg>
+          <span class="notif-badge" id="notif-badge">3</span>
+        </div>
+        <div class="profile-menu" onclick="toggleProfileMenu()">
+          <div class="header-avatar" id="header-avatar">JD</div>
+          <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+            <polyline points="6 9 12 15 18 9"/>
+          </svg>
+          <div class="profile-dropdown" id="profile-dropdown">
+            <div class="dropdown-header">
+              <div class="dd-avatar" id="dd-avatar">JD</div>
+              <div>
+                <div class="dd-name" id="dd-name">John Doe</div>
+                <div class="dd-role" id="dd-role">Patient</div>
+              </div>
+            </div>
+            <hr class="dd-divider"/>
+            <a href="#" class="dd-item" onclick="showSection('settings')">⚙️ Settings</a>
+            <a href="#" class="dd-item" onclick="showSection('reports')">📋 My Reports</a>
+            <a href="#" class="dd-item danger" onclick="logout()">🚪 Logout</a>
+          </div>
+        </div>
+      </div>
+    </header>
+
+    <!-- ========== MAIN CONTENT ========== -->
+    <main class="main-content">
+
+      <!-- TOAST CONTAINER -->
+      <div class="toast-container" id="toast-container"></div>
+
+      <!-- ===== LOGIN SECTION ===== -->
+      <section class="section active" id="section-login">
+        <div class="auth-bg">
+          <div class="auth-orb orb1"></div>
+          <div class="auth-orb orb2"></div>
+          <div class="auth-orb orb3"></div>
+        </div>
+        <div class="auth-container">
+          <div class="auth-card" id="login-card">
+            <div class="auth-logo">
+              <div class="auth-logo-icon">
+                <svg width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                  <path d="M22 12h-4l-3 9L9 3l-3 9H2"/>
+                </svg>
+              </div>
+              <h1>MediScan<span class="logo-accent">AI</span></h1>
+            </div>
+            <h2 class="auth-title">Welcome Back</h2>
+            <p class="auth-subtitle">Sign in to your healthcare dashboard</p>
+            <div class="form-group">
+              <label class="form-label">Email Address</label>
+              <div class="input-icon-wrap">
+                <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                  <path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"/>
+                  <polyline points="22,6 12,13 2,6"/>
+                </svg>
+                <input type="email" class="form-input" id="login-email" placeholder="john@example.com" value="patient@mediscan.ai"/>
+              </div>
+            </div>
+            <div class="form-group">
+              <label class="form-label">Password</label>
+              <div class="input-icon-wrap">
+                <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                  <rect x="3" y="11" width="18" height="11" rx="2" ry="2"/>
+                  <path d="M7 11V7a5 5 0 0 1 10 0v4"/>
+                </svg>
+                <input type="password" class="form-input" id="login-password" placeholder="••••••••" value="password123"/>
+              </div>
+            </div>
+            <div class="form-group">
+              <label class="form-label">Login As</label>
+              <select class="form-select" id="login-role">
+                <option value="patient">🧑‍⚕️ Patient</option>
+                <option value="doctor">👨‍⚕️ Doctor</option>
+                <option value="admin">🛡️ Admin</option>
+              </select>
+            </div>
+            <button class="btn btn-primary btn-full" onclick="handleLogin()">
+              <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                <path d="M15 3h4a2 2 0 0 1 2 2v14a2 2 0 0 1-2 2h-4"/>
+                <polyline points="10 17 15 12 10 7"/>
+                <line x1="15" y1="12" x2="3" y2="12"/>
+              </svg>
+              Sign In
+            </button>
+            <p class="auth-switch">Don't have an account? <a href="#" onclick="showSignup()">Create Account</a></p>
+          </div>
+
+          <!-- SIGNUP CARD (hidden) -->
+          <div class="auth-card" id="signup-card" style="display:none;">
+            <div class="auth-logo">
+              <div class="auth-logo-icon">
+                <svg width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                  <path d="M22 12h-4l-3 9L9 3l-3 9H2"/>
+                </svg>
+              </div>
+              <h1>MediScan<span class="logo-accent">AI</span></h1>
+            </div>
+            <h2 class="auth-title">Create Account</h2>
+            <p class="auth-subtitle">Join the healthcare revolution</p>
+            <div class="form-row">
+              <div class="form-group">
+                <label class="form-label">First Name</label>
+                <input type="text" class="form-input" id="signup-fname" placeholder="John"/>
+              </div>
+              <div class="form-group">
+                <label class="form-label">Last Name</label>
+                <input type="text" class="form-input" id="signup-lname" placeholder="Doe"/>
+              </div>
+            </div>
+            <div class="form-group">
+              <label class="form-label">Email</label>
+              <input type="email" class="form-input" id="signup-email" placeholder="john@example.com"/>
+            </div>
+            <div class="form-group">
+              <label class="form-label">Password</label>
+              <input type="password" class="form-input" id="signup-password" placeholder="••••••••"/>
+            </div>
+            <div class="form-group">
+              <label class="form-label">Register As</label>
+              <select class="form-select" id="signup-role">
+                <option value="patient">🧑‍⚕️ Patient</option>
+                <option value="doctor">👨‍⚕️ Doctor</option>
+              </select>
+            </div>
+            <button class="btn btn-primary btn-full" onclick="handleSignup()">
+              <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                <path d="M16 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/>
+                <circle cx="8.5" cy="7" r="4"/>
+                <line x1="20" y1="8" x2="20" y2="14"/><line x1="23" y1="11" x2="17" y2="11"/>
+              </svg>
+              Create Account
+            </button>
+            <p class="auth-switch">Already have an account? <a href="#" onclick="showLogin()">Sign In</a></p>
+          </div>
+        </div>
+      </section>
+
+      <!-- ===== DASHBOARD SECTION ===== -->
+      <section class="section" id="section-dashboard">
+        <div class="page-header">
+          <div>
+            <h1 class="page-title" id="welcome-msg">Good Evening, Tanish 👋</h1>
+            <p class="page-subtitle">Here's your health overview for today</p>
+          </div>
+          <button class="btn btn-primary" onclick="showSection('detect')">
+            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+              <circle cx="11" cy="11" r="8"/><path d="m21 21-4.35-4.35"/>
+            </svg>
+            Run Health Check
+          </button>
+        </div>
+
+        <!-- STAT CARDS -->
+        <div class="stats-grid">
+          <div class="stat-card" id="stat-checks">
+            <div class="stat-icon cyan">
+              <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                <path d="M22 12h-4l-3 9L9 3l-3 9H2"/>
+              </svg>
+            </div>
+            <div class="stat-info">
+              <span class="stat-value" id="total-checks">0</span>
+              <span class="stat-label">Total Checks</span>
+            </div>
+            <div class="stat-trend up">+12%</div>
+          </div>
+          <div class="stat-card" id="stat-risk">
+            <div class="stat-icon green">
+              <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                <path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/>
+              </svg>
+            </div>
+            <div class="stat-info">
+              <span class="stat-value" id="risk-level-dash" style="font-size:1.1rem;">Low Risk</span>
+              <span class="stat-label">Current Risk</span>
+            </div>
+            <div class="stat-trend neutral">—</div>
+          </div>
+          <div class="stat-card" id="stat-appts">
+            <div class="stat-icon purple">
+              <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                <rect x="3" y="4" width="18" height="18" rx="2" ry="2"/>
+                <line x1="16" y1="2" x2="16" y2="6"/><line x1="8" y1="2" x2="8" y2="6"/>
+                <line x1="3" y1="10" x2="21" y2="10"/>
+              </svg>
+            </div>
+            <div class="stat-info">
+              <span class="stat-value" id="total-appts">0</span>
+              <span class="stat-label">Appointments</span>
+            </div>
+            <div class="stat-trend up">Active</div>
+          </div>
+          <div class="stat-card" id="stat-score">
+            <div class="stat-icon orange">
+              <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                <polyline points="23 6 13.5 15.5 8.5 10.5 1 18"/>
+                <polyline points="17 6 23 6 23 12"/>
+              </svg>
+            </div>
+            <div class="stat-info">
+              <span class="stat-value" id="health-score">85</span>
+              <span class="stat-label">Health Score</span>
+            </div>
+            <div class="stat-trend up">+5 pts</div>
+          </div>
+        </div>
+
+        <!-- QUICK ACTIONS -->
+        <div class="section-title-row">
+          <h2 class="section-title">Quick Actions</h2>
+        </div>
+        <div class="quick-actions">
+          <button class="quick-btn" onclick="showSection('detect')">
+            <div class="quick-icon">🔬</div>
+            <span>Check Disease</span>
+          </button>
+          <button class="quick-btn" onclick="showSection('doctors')">
+            <div class="quick-icon">👨‍⚕️</div>
+            <span>Book Doctor</span>
+          </button>
+          <button class="quick-btn" onclick="showSection('reports')">
+            <div class="quick-icon">📋</div>
+            <span>View Reports</span>
+          </button>
+          <button class="quick-btn" onclick="showEmergency()">
+            <div class="quick-icon">🚨</div>
+            <span>Emergency</span>
+          </button>
+        </div>
+
+        <!-- RECENT PREDICTIONS -->
+        <div class="section-title-row">
+          <h2 class="section-title">Recent Predictions</h2>
+          <a href="#" class="view-all" onclick="showSection('reports')">View All →</a>
+        </div>
+        <div id="recent-predictions-list">
+          <div class="empty-state">
+            <div class="empty-icon">🩺</div>
+            <p>No predictions yet. Run your first health check!</p>
+            <button class="btn btn-primary" onclick="showSection('detect')">Start Health Check</button>
+          </div>
+        </div>
+
+        <!-- DASHBOARD CHART -->
+        <div class="section-title-row" id="dash-chart-header" style="display:none;">
+          <h2 class="section-title">Latest Disease Analysis</h2>
+        </div>
+        <div class="card" id="dash-chart-card" style="display:none;">
+          <canvas id="dashboard-chart" width="800" height="300"></canvas>
+        </div>
+      </section>
+
+      <!-- ===== DETECT SECTION ===== -->
+      <section class="section" id="section-detect">
+        <div class="page-header">
+          <div>
+            <h1 class="page-title">Disease Detection</h1>
+            <p class="page-subtitle">Enter your health parameters for AI-powered analysis</p>
+          </div>
+        </div>
+
+        <div class="detect-grid">
+          <!-- INPUT FORM -->
+          <div class="detect-form-col">
+            <div class="card">
+              <div class="card-header">
+                <h3>📊 Health Parameters</h3>
+                <span class="card-badge">Step 1 of 2</span>
+              </div>
+              <div class="form-section">
+                <h4 class="form-section-title">Basic Information</h4>
+                <div class="form-row">
+                  <div class="form-group">
+                    <label class="form-label">Age <span class="required">*</span></label>
+                    <input type="number" class="form-input" id="input-age" placeholder="e.g. 35" min="1" max="120"/>
+                    <span class="form-hint">Years (1–120)</span>
+                  </div>
+                  <div class="form-group">
+                    <label class="form-label">Gender</label>
+                    <select class="form-select" id="input-gender">
+                      <option value="male">Male</option>
+                      <option value="female">Female</option>
+                    </select>
+                  </div>
+                </div>
+              </div>
+
+              <div class="form-section">
+                <h4 class="form-section-title">Vital Signs</h4>
+                <div class="form-row">
+                  <div class="form-group">
+                    <label class="form-label">Blood Pressure <span class="required">*</span></label>
+                    <input type="number" class="form-input" id="input-bp" placeholder="e.g. 120" min="60" max="200"/>
+                    <span class="form-hint">Systolic mmHg (60–200)</span>
+                  </div>
+                  <div class="form-group">
+                    <label class="form-label">Glucose Level <span class="required">*</span></label>
+                    <input type="number" class="form-input" id="input-glucose" placeholder="e.g. 100" min="50" max="500"/>
+                    <span class="form-hint">mg/dL (50–500)</span>
+                  </div>
+                </div>
+                <div class="form-row">
+                  <div class="form-group">
+                    <label class="form-label">Cholesterol <span class="required">*</span></label>
+                    <input type="number" class="form-input" id="input-cholesterol" placeholder="e.g. 200" min="100" max="600"/>
+                    <span class="form-hint">mg/dL (100–600)</span>
+                  </div>
+                  <div class="form-group">
+                    <label class="form-label">BMI</label>
+                    <input type="number" class="form-input" id="input-bmi" placeholder="e.g. 24.5" min="10" max="60" step="0.1"/>
+                    <span class="form-hint">kg/m² (10–60)</span>
+                  </div>
+                </div>
+                <div class="form-row">
+                  <div class="form-group">
+                    <label class="form-label">Heart Rate</label>
+                    <input type="number" class="form-input" id="input-hr" placeholder="e.g. 75" min="40" max="200"/>
+                    <span class="form-hint">bpm (40–200)</span>
+                  </div>
+                  <div class="form-group">
+                    <label class="form-label">Oxygen Saturation</label>
+                    <input type="number" class="form-input" id="input-o2" placeholder="e.g. 98" min="80" max="100"/>
+                    <span class="form-hint">SpO₂ % (80–100)</span>
+                  </div>
+                </div>
+              </div>
+
+              <div class="form-section">
+                <h4 class="form-section-title">Symptoms</h4>
+                <div class="symptoms-grid">
+                  <label class="symptom-cb"><input type="checkbox" value="fatigue" id="sym-fatigue"/> <span>😴 Fatigue</span></label>
+                  <label class="symptom-cb"><input type="checkbox" value="chest_pain" id="sym-chest"/> <span>💔 Chest Pain</span></label>
+                  <label class="symptom-cb"><input type="checkbox" value="shortness_breath" id="sym-breath"/> <span>😮‍💨 Shortness of Breath</span></label>
+                  <label class="symptom-cb"><input type="checkbox" value="frequent_urination" id="sym-urination"/> <span>🚽 Frequent Urination</span></label>
+                  <label class="symptom-cb"><input type="checkbox" value="excessive_thirst" id="sym-thirst"/> <span>💧 Excessive Thirst</span></label>
+                  <label class="symptom-cb"><input type="checkbox" value="blurred_vision" id="sym-vision"/> <span>👁️ Blurred Vision</span></label>
+                  <label class="symptom-cb"><input type="checkbox" value="nausea" id="sym-nausea"/> <span>🤢 Nausea</span></label>
+                  <label class="symptom-cb"><input type="checkbox" value="jaundice" id="sym-jaundice"/> <span>🟡 Jaundice</span></label>
+                  <label class="symptom-cb"><input type="checkbox" value="swelling" id="sym-swelling"/> <span>🦵 Swelling</span></label>
+                  <label class="symptom-cb"><input type="checkbox" value="tremor" id="sym-tremor"/> <span>🤲 Tremors</span></label>
+                  <label class="symptom-cb"><input type="checkbox" value="cough" id="sym-cough"/> <span>🤧 Chronic Cough</span></label>
+                  <label class="symptom-cb"><input type="checkbox" value="weight_loss" id="sym-weight"/> <span>⚖️ Weight Loss</span></label>
+                  <label class="symptom-cb"><input type="checkbox" value="back_pain" id="sym-back"/> <span>🔙 Back Pain</span></label>
+                  <label class="symptom-cb"><input type="checkbox" value="headache" id="sym-headache"/> <span>🤕 Headache</span></label>
+                  <label class="symptom-cb"><input type="checkbox" value="muscle_pain" id="sym-muscle"/> <span>💪 Muscle Pain</span></label>
+                  <label class="symptom-cb"><input type="checkbox" value="loss_appetite" id="sym-appetite"/> <span>🍽️ Loss of Appetite</span></label>
+                </div>
+              </div>
+
+              <div class="form-section">
+                <h4 class="form-section-title">Additional Factors</h4>
+                <div class="form-row">
+                  <div class="form-group">
+                    <label class="form-label">Smoking History</label>
+                    <select class="form-select" id="input-smoking">
+                      <option value="never">Never</option>
+                      <option value="former">Former Smoker</option>
+                      <option value="current">Current Smoker</option>
+                    </select>
+                  </div>
+                  <div class="form-group">
+                    <label class="form-label">Family History</label>
+                    <select class="form-select" id="input-family">
+                      <option value="none">No significant history</option>
+                      <option value="diabetes">Diabetes</option>
+                      <option value="heart">Heart Disease</option>
+                      <option value="cancer">Cancer</option>
+                    </select>
+                  </div>
+                </div>
+              </div>
+
+              <div class="form-actions">
+                <button class="btn btn-outline" onclick="clearForm()">
+                  <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                    <polyline points="1 4 1 10 7 10"/><path d="M3.51 15a9 9 0 1 0 .49-3.51"/>
+                  </svg>
+                  Reset
+                </button>
+                <button class="btn btn-primary" onclick="runPrediction()">
+                  <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                    <circle cx="11" cy="11" r="8"/><path d="m21 21-4.35-4.35"/>
+                  </svg>
+                  Analyze Now
+                </button>
+              </div>
+            </div>
+          </div>
+
+          <!-- LIVE METER COLUMN -->
+          <div class="detect-info-col">
+            <div class="card">
+              <div class="card-header"><h3>💡 Health Tips</h3></div>
+              <div class="tips-list">
+                <div class="tip-item">
+                  <span class="tip-icon">🥗</span>
+                  <p>Maintain a balanced diet rich in vegetables and whole grains</p>
+                </div>
+                <div class="tip-item">
+                  <span class="tip-icon">🏃</span>
+                  <p>Exercise at least 30 minutes daily for cardiovascular health</p>
+                </div>
+                <div class="tip-item">
+                  <span class="tip-icon">💧</span>
+                  <p>Drink 8–10 glasses of water daily to stay hydrated</p>
+                </div>
+                <div class="tip-item">
+                  <span class="tip-icon">😴</span>
+                  <p>Get 7–8 hours of quality sleep every night</p>
+                </div>
+                <div class="tip-item">
+                  <span class="tip-icon">🚭</span>
+                  <p>Avoid smoking and limit alcohol consumption</p>
+                </div>
+              </div>
+            </div>
+
+            <div class="card">
+              <div class="card-header"><h3>📏 Normal Ranges</h3></div>
+              <div class="ranges-table">
+                <div class="range-row"><span>Blood Pressure</span><span class="range-val">90–120 mmHg</span></div>
+                <div class="range-row"><span>Glucose (Fasting)</span><span class="range-val">70–100 mg/dL</span></div>
+                <div class="range-row"><span>Cholesterol</span><span class="range-val">&lt; 200 mg/dL</span></div>
+                <div class="range-row"><span>BMI</span><span class="range-val">18.5–24.9</span></div>
+                <div class="range-row"><span>Heart Rate</span><span class="range-val">60–100 bpm</span></div>
+                <div class="range-row"><span>SpO₂</span><span class="range-val">95–100%</span></div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- ===== RESULTS SECTION ===== -->
+      <section class="section" id="section-results">
+        <div class="page-header">
+          <div>
+            <h1 class="page-title">Prediction Results</h1>
+            <p class="page-subtitle">AI-powered disease risk analysis</p>
+          </div>
+          <div style="display:flex;gap:10px;">
+            <button class="btn btn-outline" onclick="showSection('detect')">
+              ← Run Again
+            </button>
+            <button class="btn btn-primary" onclick="downloadReport()">
+              📄 Download Report
+            </button>
+          </div>
+        </div>
+
+        <!-- PRIMARY RESULT -->
+        <div class="primary-result-card" id="primary-result">
+          <!-- Filled by JS -->
+        </div>
+
+        <!-- ALL DISEASE SCORES -->
+        <div class="section-title-row">
+          <h2 class="section-title">Complete Risk Analysis</h2>
+        </div>
+        <div class="disease-cards-grid" id="disease-cards">
+          <!-- Filled by JS -->
+        </div>
+
+        <!-- CHART -->
+        <div class="section-title-row">
+          <h2 class="section-title">Disease Probability Chart</h2>
+        </div>
+        <div class="card chart-card">
+          <canvas id="results-chart" width="800" height="350"></canvas>
+        </div>
+
+        <!-- EXPLANATION + PRECAUTIONS -->
+        <div class="result-details-grid">
+          <div class="card" id="explanation-card">
+            <div class="card-header"><h3>🧠 Why This Result?</h3></div>
+            <div id="explanation-content"></div>
+          </div>
+          <div class="card" id="precautions-card">
+            <div class="card-header"><h3>🛡️ Recommended Actions</h3></div>
+            <div id="precautions-content"></div>
+          </div>
+        </div>
+
+        <!-- BOOK DOCTOR CTA -->
+        <div class="consult-cta">
+          <div class="cta-content">
+            <div class="cta-icon">👨‍⚕️</div>
+            <div>
+              <h3>Consult a Specialist</h3>
+              <p>Based on your results, we recommend speaking with a qualified doctor</p>
+            </div>
+          </div>
+          <button class="btn btn-primary" onclick="showSection('doctors')">Book Appointment →</button>
+        </div>
+      </section>
+
+      <!-- ===== DOCTORS SECTION ===== -->
+      <section class="section" id="section-doctors">
+        <div class="page-header">
+          <div>
+            <h1 class="page-title">Find Doctors</h1>
+            <p class="page-subtitle">Book online or offline consultations with specialists</p>
+          </div>
+        </div>
+
+        <!-- FILTER BAR -->
+        <div class="filter-bar">
+          <select class="form-select filter-select" id="doctor-filter" onchange="filterDoctors()">
+            <option value="all">All Specializations</option>
+            <option value="diabetologist">Diabetologist</option>
+            <option value="cardiologist">Cardiologist</option>
+            <option value="hepatologist">Hepatologist</option>
+            <option value="nephrologist">Nephrologist</option>
+            <option value="pulmonologist">Pulmonologist</option>
+            <option value="neurologist">Neurologist</option>
+          </select>
+          <select class="form-select filter-select" id="avail-filter" onchange="filterDoctors()">
+            <option value="all">All Availability</option>
+            <option value="available">Available Today</option>
+            <option value="busy">Busy</option>
+          </select>
+          <div class="search-bar-mini">
+            <input type="text" class="form-input" id="doctor-search" placeholder="Search by name..." oninput="filterDoctors()"/>
+          </div>
+        </div>
+
+        <div class="doctors-grid" id="doctors-grid">
+          <!-- Filled by JS -->
+        </div>
+      </section>
+
+      <!-- ===== REPORTS SECTION ===== -->
+      <section class="section" id="section-reports">
+        <div class="page-header">
+          <div>
+            <h1 class="page-title">Health Reports</h1>
+            <p class="page-subtitle">Your complete prediction history and health timeline</p>
+          </div>
+          <button class="btn btn-danger-outline" onclick="clearHistory()">
+            🗑️ Clear History
+          </button>
+        </div>
+
+        <div id="reports-content">
+          <div class="empty-state">
+            <div class="empty-icon">📋</div>
+            <p>No health reports found. Complete a disease check to see results here.</p>
+            <button class="btn btn-primary" onclick="showSection('detect')">Start Health Check</button>
+          </div>
+        </div>
+      </section>
+
+      <!-- ===== SETTINGS SECTION ===== -->
+      <section class="section" id="section-settings">
+        <div class="page-header">
+          <div>
+            <h1 class="page-title">Settings</h1>
+            <p class="page-subtitle">Manage your account and preferences</p>
+          </div>
+        </div>
+
+        <div class="settings-grid">
+          <div class="card">
+            <div class="card-header"><h3>👤 Profile Settings</h3></div>
+            <div class="settings-form">
+              <div class="form-group">
+                <label class="form-label">Full Name</label>
+                <input type="text" class="form-input" id="settings-name" placeholder="John Doe"/>
+              </div>
+              <div class="form-group">
+                <label class="form-label">Email</label>
+                <input type="email" class="form-input" id="settings-email" placeholder="john@example.com"/>
+              </div>
+              <div class="form-group">
+                <label class="form-label">Date of Birth</label>
+                <input type="date" class="form-input" id="settings-dob"/>
+              </div>
+              <div class="form-group">
+                <label class="form-label">Phone</label>
+                <input type="tel" class="form-input" id="settings-phone" placeholder="+91 9876543210"/>
+              </div>
+              <button class="btn btn-primary" onclick="saveSettings()">Save Changes</button>
+            </div>
+          </div>
+
+          <div class="settings-col">
+            <div class="card">
+              <div class="card-header"><h3>🎨 Appearance</h3></div>
+              <div class="settings-form">
+                <div class="toggle-option">
+                  <div>
+                    <div class="toggle-label">Dark Mode</div>
+                    <div class="toggle-sub">Use dark theme interface</div>
+                  </div>
+                  <label class="toggle-switch">
+                    <input type="checkbox" id="dark-mode-toggle" checked onchange="toggleTheme()"/>
+                    <span class="toggle-slider"></span>
+                  </label>
+                </div>
+                <div class="toggle-option">
+                  <div>
+                    <div class="toggle-label">Notifications</div>
+                    <div class="toggle-sub">Receive health alerts</div>
+                  </div>
+                  <label class="toggle-switch">
+                    <input type="checkbox" id="notif-toggle" checked/>
+                    <span class="toggle-slider"></span>
+                  </label>
+                </div>
+              </div>
+            </div>
+
+            <div class="card">
+              <div class="card-header"><h3>🔐 Security</h3></div>
+              <div class="settings-form">
+                <div class="form-group">
+                  <label class="form-label">Current Password</label>
+                  <input type="password" class="form-input" placeholder="••••••••"/>
+                </div>
+                <div class="form-group">
+                  <label class="form-label">New Password</label>
+                  <input type="password" class="form-input" placeholder="••••••••"/>
+                </div>
+                <button class="btn btn-outline">Change Password</button>
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+
+    </main>
+  </main>
+
+  <!-- ===== APPOINTMENT MODAL ===== -->
+  <div class="modal-overlay" id="appointment-modal" onclick="closeModal(event)">
+    <div class="modal">
+      <button class="modal-close" onclick="closeAppointmentModal()">✕</button>
+      <div class="modal-header">
+        <div class="modal-doc-avatar" id="modal-doc-avatar">DR</div>
+        <div>
+          <h3 id="modal-doc-name">Dr. Name</h3>
+          <p id="modal-doc-spec">Specialization</p>
+        </div>
+      </div>
+      <div class="form-group">
+        <label class="form-label">Appointment Date</label>
+        <input type="date" class="form-input" id="appt-date"/>
+      </div>
+      <div class="form-group">
+        <label class="form-label">Preferred Time</label>
+        <div class="time-slots" id="time-slots">
+          <button class="time-slot" onclick="selectTime(this)">09:00 AM</button>
+          <button class="time-slot" onclick="selectTime(this)">10:00 AM</button>
+          <button class="time-slot" onclick="selectTime(this)">11:00 AM</button>
+          <button class="time-slot" onclick="selectTime(this)">02:00 PM</button>
+          <button class="time-slot" onclick="selectTime(this)">03:00 PM</button>
+          <button class="time-slot" onclick="selectTime(this)">04:00 PM</button>
+        </div>
+      </div>
+      <div class="form-group">
+        <label class="form-label">Consultation Type</label>
+        <div class="consult-type-btns">
+          <button class="consult-type active" onclick="selectConsultType(this,'online')">🖥️ Online</button>
+          <button class="consult-type" onclick="selectConsultType(this,'offline')">🏥 In-Person</button>
+        </div>
+      </div>
+      <div class="form-group">
+        <label class="form-label">Notes (optional)</label>
+        <textarea class="form-input form-textarea" id="appt-notes" placeholder="Describe your symptoms or concerns..."></textarea>
+      </div>
+      <button class="btn btn-primary btn-full" onclick="confirmAppointment()">
+        ✅ Confirm Appointment
+      </button>
+    </div>
+  </div>
+
+  <!-- ===== EMERGENCY MODAL ===== -->
+  <div class="modal-overlay emergency-overlay" id="emergency-modal" onclick="closeEmergencyModal(event)">
+    <div class="modal emergency-modal-content">
+      <button class="modal-close" onclick="document.getElementById('emergency-modal').style.display='none'">✕</button>
+      <div class="emergency-header">
+        <div class="emergency-pulse">🚨</div>
+        <h2>Emergency Contacts</h2>
+        <p>If you are experiencing a medical emergency, contact immediately</p>
+      </div>
+      <div class="emergency-contacts">
+        <a href="tel:112" class="emergency-contact-card">
+          <span class="ec-icon">📞</span>
+          <div><strong>Emergency</strong><span>112</span></div>
+        </a>
+        <a href="tel:102" class="emergency-contact-card">
+          <span class="ec-icon">🚑</span>
+          <div><strong>Ambulance</strong><span>102</span></div>
+        </a>
+        <a href="tel:104" class="emergency-contact-card">
+          <span class="ec-icon">🏥</span>
+          <div><strong>Health Helpline</strong><span>104</span></div>
+        </a>
+        <a href="tel:108" class="emergency-contact-card">
+          <span class="ec-icon">❤️</span>
+          <div><strong>Medical SOS</strong><span>108</span></div>
+        </a>
+      </div>
+      <div class="emergency-note">📍 Nearest Hospitals: City General Hospital (1.2km) • Apollo Medical (3.4km)</div>
+    </div>
+  </div>
+
+  <!-- ===== CHATBOT ===== -->
+  <div class="chatbot-fab" id="chatbot-fab" onclick="toggleChatbot()">
+    <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+      <path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"/>
+    </svg>
+    <span class="chatbot-badge">AI</span>
+  </div>
+
+  <div class="chatbot-window" id="chatbot-window" style="display:none;">
+    <div class="chatbot-header">
+      <div class="chatbot-avatar">🤖</div>
+      <div>
+        <div class="chatbot-name">MediBot AI</div>
+        <div class="chatbot-status">● Online</div>
+      </div>
+      <button class="chatbot-close" onclick="toggleChatbot()">✕</button>
+    </div>
+    <div class="chatbot-messages" id="chatbot-messages">
+      <div class="chat-msg bot">
+        <span>Hi! I'm MediBot 👋 I can answer your health questions. Try asking: "What is diabetes?" or "What are heart disease symptoms?"</span>
+      </div>
+    </div>
+    <div class="chatbot-input-row">
+      <input type="text" class="chatbot-input" id="chatbot-input" placeholder="Ask a health question..." onkeydown="if(event.key==='Enter')sendChat()"/>
+      <button class="chatbot-send" onclick="sendChat()">
+        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+          <line x1="22" y1="2" x2="11" y2="13"/><polygon points="22 2 15 22 11 13 2 9 22 2"/>
+        </svg>
+      </button>
+    </div>
+  </div>
+
+  <script src="app.js"></script>
+</body>
+</html>
